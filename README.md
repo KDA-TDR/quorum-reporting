@@ -114,3 +114,26 @@ Elasticsearch Database Schema [Reference](database/elasticsearch/README.md)
 #### RPC API Specification
 
 [Reference](core/rpc/README.md)
+
+
+
+##### Download Geth
+
+##### Git clone reporting tool
+
+##### change filename config.docker.sample.toml to config.docker.toml
+
+##### change config.docker.toml contract address and abi
+
+address ="", templateName = "DRCManager" 
+&&
+{ templateName = "DRCManager", abi = '' },
+
+##### Build docker image:
+docker build . -t quorum-reporting
+
+##### Start get with:(change port accordingly)
+geth --graphql --graphql.vhosts=* --ws --port 22001 --ws.api admin,eth,debug --ws.origins=* --gcmode=archive
+
+##### Run docker with:
+docker run -p 3000 --mount type=bind,source=$(pwd)/config.docker.toml,target=/config.toml quorum-reporting:latest
